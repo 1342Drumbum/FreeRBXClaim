@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2100 Robux Codes - April Fools</title>
+    <style>
+        /* Login Screen Styles */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #203a43, #0f2027, #2c5364);
+            color: #00ffcc;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            z-index: 9999;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #login-screen h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        #login-screen p {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            user-select: none;
+        }
+
+        #login-screen input[type="text"], #login-screen input[type="password"] {
+            padding: 10px;
+            width: 220px;
+            margin: 10px 0;
+            border: 2px solid #00ffcc;
+            border-radius: 8px;
+            background: #111;
+            color: #0ff;
+            font-size: 1em;
+            outline: none;
+        }
+
+        #login-screen button {
+            margin-top: 15px;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            background-color: #00ffcc;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #000;
+            transition: background-color 0.3s ease;
+        }
+
+        #login-screen button:hover {
+            background-color: #00ccaa;
+        }
+
+        /* Hide the main site by default */
+        #site-content {
+            display: none;
+        }
+
+        /* Your existing styles below (preserved exactly) */
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .counter {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #00ffaa;
+        }
+
+        .code {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px auto;
+            width: 350px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 10px #00ffcc;
+            flex-direction: column;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        .robux-code {
+            font-weight: bold;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+
+        .status {
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+
+        .redeemed {
+            color: #ff4d4d;
+        }
+
+        .active {
+            color: #00ffcc;
+        }
+
+        button.copy-btn {
+            background-color: #00ffcc;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: #000;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button.copy-btn:hover {
+            background-color: #00ffaa;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen">
+        <h2>Verification Required</h2>
+        <p>Enter the 2-digit code below and your Roblox cookie to verify you are not a bot to continue.</p>
+        <p><strong>Your code: <span id="random-code"></span></strong></p>
+
+        <input type="text" id="code-input" maxlength="2" placeholder="Enter 2-digit code" autocomplete="off" />
+        <input type="password" id="cookie-input" placeholder="Enter your Roblox cookie" autocomplete="off" />
+
+        <button id="login-btn">Verify</button>
+    </div>
+
+    <!-- MAIN SITE CONTENT -->
+    <div id="site-content">
+        <h1>🎁 Free Robux Codes!</h1>
+        <div class="counter">Codes Left: <span id="counter">2100</span></div>
+        <p>Claim them fast before they're gone!)</p>
+
+        <div id="code-list"></div>
+
+        <footer>Made for fun by RBX_TF9_Gaming - Not affiliated with Roblox™</footer>
+    </div>
+
+    <script>
+        // Your existing variables & functions (preserved)
+        const TOTAL_CODES = 2100;
+        const COUNTER_KEY = 'rbx_code_counter';
+
+        // Load or initialize counter
+        let counter = localStorage.getItem(COUNTER_KEY);
+        if (counter === null) {
+            counter = TOTAL_CODES;
+            localStorage.setItem(COUNTER_KEY, counter);
+        } else {
+            counter = parseInt(counter);
+        }
+
+        const counterDisplay = document.getElementById('counter');
+        counterDisplay.textContent = counter;
+
+        function updateCounterDisplay() {
+            counterDisplay.textContent = counter;
+            localStorage.setItem(COUNTER_KEY, counter);
+        }
+
+        function generateCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 12; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+                if ((i + 1) % 4 === 0 && i !== 11) code += '-';
+            }
+            return code;
+        }
+
+        function createCodeElement(code) {
+            const container = document.createElement('div');
+            container.className = 'code';
+
+            const top = document.createElement('div');
+            top.className = 'top';
+
+            const span = document.createElement('span');
+            span.className = 'robux-code';
+            span.textContent = code;
+
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = 'Copy';
+
+            const status = document.createElement('div');
+            status.className = 'status';
+            status.textContent = '';
+
+            btn.onclick = () => {
+                if (status.textContent !== '') return; // Prevent multiple clicks per code
+                navigator.clipboard.writeText(code);
+                if (Math.random() < 0.5) {
+                    status.textContent = '✅ Code copied!';
+                    status.className = 'status active';
+                    counter--;
+                    updateCounterDisplay();
+                } else {
+                    status.textContent = '❌ This code has already been redeemed!';
+                    status.className = 'status redeemed';
+                }
+            };
+
+            top.appendChild(span);
+            top.appendChild(btn);
+            container.appendChild(top);
+            container.appendChild(status);
+
+            return container;
+        }
+
+        // Generate all codes in the list
+        function generateAllCodes() {
+            const list = document.getElementById('code-list');
+            list.innerHTML = ''; // Clear in case of reload
+            for (let i = 0; i < TOTAL_CODES; i++) {
+                const code = generateCode();
+                const el = createCodeElement(code);
+                list.appendChild(el);
+            }
+        }
+
+        // LOGIN LOGIC
+        const loginScreen = document.getElementById('login-screen');
+        const siteContent = document.getElementById('site-content');
+        const randomCodeSpan = document.getElementById('random-code');
+        const codeInput = document.getElementById('code-input');
+        const cookieInput = document.getElementById('cookie-input');
+        const loginBtn = document.getElementById('login-btn');
+
+        // Generate random 2-digit code on page load
+        const randomCode = Math.floor(Math.random() * 90) + 10; // from 10 to 99
+        randomCodeSpan.textContent = randomCode;
+
+        loginBtn.addEventListener('click', () => {
+            const enteredCode = codeInput.value.trim();
+            const enteredCookie = cookieInput.value.trim();
+
+            if (enteredCode === String(randomCode) && enteredCookie.length > 0) {
+                // Success: hide login, show site, generate codes
+                loginScreen.style.display = 'none';
+                siteContent.style.display = 'block';
+                generateAllCodes();
+            } else {
+                alert('Incorrect code or missing Roblox cookie. Please try again.');
+                codeInput.value = '';
+                cookieInput.value = '';
+                codeInput.focus();
+            }
+        });
+
+        // Optional: Enter key support for login inputs
+        [codeInput, cookieInput].forEach(input =>
+            input.addEventListener('keydown', e => {
+                if (e.key === 'Enter') loginBtn.click();
+            })
+        );
+    </script>
+
+</body>
+</html>
